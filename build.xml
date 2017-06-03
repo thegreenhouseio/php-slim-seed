@@ -120,7 +120,7 @@
       <formatter type="xml" outfile="reports/test-results.xml">
       </formatter>
       <batchtest>
-        <fileset dir="tests/" >
+        <fileset dir="test/" >
           <include name="**/*.php"/>
         </fileset>
       </batchtest>
