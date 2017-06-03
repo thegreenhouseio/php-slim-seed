@@ -19,7 +19,7 @@ class ContactServiceTest extends PHPUnit_Framework_TestCase{
 
   public function setup(){
     //determine local vs development config path
-    $configPath = getcwd() === "/vagrant" ? "./ini/config-local.ini" : "/var/www/analogstudios/config-env.ini";
+    $configPath = getcwd() === "/vagrant" ? "./ini/config-local.ini" : "/var/www/thegreenhouse/config-env.ini";
 
     self::$CONFIG = service\ConfigService::getConfigFromIni($configPath);
     self::$MAILER_CONFIG = array(

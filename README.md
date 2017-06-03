@@ -6,11 +6,14 @@ configure
 - build.xml (project name, project description, documentation task)
 - controller.php
 - Vagrantfile hostname
+- deploy script
+- hardcoded dev path in test files
 
 TODO
 - config file location?
 - config values
 - routes
+- CI setup
 
 PHP7
 Slim
