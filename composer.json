@@ -1,0 +1,23 @@
+{
+  "config": {
+    "github-oauth": {
+      "github.com": "bf3c31adaded4e18f2b7e9bff0ae81146f8083c7"
+    },
+    "vendor-dir": "vendor"
+  },
+  "require": {
+    "slim/slim": "2.6.2",
+    "firebase/php-jwt": "3.0",
+    "phpmailer/phpmailer": "5.2.x"
+  },
+  "require-dev": {
+    "phing/phing": "2.14.0",
+    "phpunit/phpunit": "4.6.0",
+    "phpdocumentor/phpdocumentor": "2.8.5"
+  },
+  "autoload":{
+    "psr-4": {
+      "as\\" : "/src"
+    }
+  }
+}
