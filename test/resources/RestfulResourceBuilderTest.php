@@ -4,7 +4,7 @@ error_reporting(E_ALL | E_STRICT);
 
 require_once "src/base/AbstractRestfulDatabase.php";
 require_once "src/base/AbstractRestfulResource.php";
-require_once "src/resources/EventsResource.php";
+require_once "src/resources/AlbumsResource.php";
 require_once "src/resources/RestfulResourceBuilder.php";
 require_once "src/services/ConfigService.php";
 require_once "src/services/RestfulDatabaseService.php";
@@ -34,7 +34,7 @@ class RestfulEntityBuilder extends PHPUnit_Framework_TestCase{
   }
 
   public function testBuildRestfulEventsEntity(){
-    $builder = new resource\RestfulResourceBuilder(self::$DB_CONFIG, 'events');
+    $builder = new resource\RestfulResourceBuilder(self::$DB_CONFIG, 'albums');
     $resource = $builder->getResource();
 
     $this->assertTrue($resource instanceof resource\EventsResource);
