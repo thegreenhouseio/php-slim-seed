@@ -3,7 +3,6 @@
 
   <php expression="include('vendor/autoload.php')"/>
 
-  <property name="project.name" value="tgh-api" />
   <property name="project.version" value="0.1.0-SNAPSHOT" />
   <property name="buildDir" value="build"/>
 
@@ -155,7 +154,7 @@
 
     <echo msg="creating phar archive..."/>
     <pharpackage
-      destfile="${buildDir}/${project.name}.phar"
+      destfile="${buildDir}/tgh-api.phar"
       basedir="tmp/"
       compression="gzip"
       stub="src/stub.php"

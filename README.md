@@ -80,9 +80,18 @@ vagrant@thegreenhouse:/vagrant$ exit
 $ vagrant destroy
 ```
 
-For more on all available Vagrant commands, see the [manual](https://www.vagrantup.com/docs/cli/).
+**MySQL / Apache**
+This project's local development environment is equipped with a full AMP stack for development, and so an Apache 
+webserver and MySQL database are configured and available and runnable from the command line (turned on by default in
+Vagrant).  
 
-For OSX users, there is a GUI application called [Vagrant Manager](http://vagrantmanager.com/).
+In addition, the Vagrant provisioning script populates MySQL from a `.sql` file so a fresh database is setup each time
+`vagrant up` is run.  In this way, it is easy to develop and test against production data, by getting a simple SQL
+dump from the production database and saving it to this project.
+
+**Notes**
+- For more on all available Vagrant commands, see the [manual](https://www.vagrantup.com/docs/cli/).
+- For OSX users, there is a GUI application called [Vagrant Manager](http://vagrantmanager.com/).
 
 ### Tasks
 An overview of Phing commands that can be run for this project
@@ -92,18 +101,18 @@ For the most part, you will just want to write code, write some tests, and the i
 can be done with
 
 ```
-$ phing develop`
+$ phing develop
 ```
 
 #### Production
 
-1. standard production build (WITH linting, docs, tests)
+1. Standard production build (WITH linting, docs, tests)
 
 ```
 $ phing build
 ```
 
-2. "expedited" build (NO linting, docs, tests)
+2. "Expedited" production build (NO linting, docs, tests, just packaging, say for local development)
 
 ```
 $ phing build:exp
@@ -116,7 +125,7 @@ Or the browser / POSTman against your host machine
 `localhost:4567/api/albums`
 
 
-**Note:** When running any of the production tasks in Vagrant, add this to the command
+**Note:** When wanting to teste the API via cURL or POSTman add this to the command you run
 ```
 -D buildDir=/home/vagrant/build && cp src/.htaccess /home/vagrant/build/
 ```
@@ -138,14 +147,14 @@ and open _{path/to/repo/in/your/filesystem}/reports/docs/index.html_ in your bro
 ### Dependency Management
 Composer is used for managing / install 3rd party dependencies for the project.  It also creates an autoloader.
 
-To install all the dependencies from _package.json_
+To install all the dependencies from _composer.json_ (Vagrant will do this for you)
 `$ composer install`
 
 To install a new dependency
-`$ composer require {package-name}
+`$ composer require {package-name}`
 
 To upgrade an existing dependency
-`$ composer require {package-name}
+`$ composer require {package-name}`
 
 
 ### Creating a new resource / endpoint (/albums, /artists, etc )

@@ -103,8 +103,10 @@ composer --version
 phing -v
 phpunit --version
 
-echo "*** Setting Up Env Config ***"
+echo "*** Setting Up Development Environment ***"
+mkdir /home/vagrant/build
+
 cp /vagrant/ini/config-local.ini /home/vagrant/config-env.ini
-cp -v src/.htaccess /home/vagrant/build
+cp -v src/.htaccess /home/vagrant/build/
 
 apt-get -y install php-xdebug php7.1-xsl php7.0-xml -y

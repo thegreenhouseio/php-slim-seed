@@ -92,8 +92,6 @@ class AlbumsResourceTest extends PHPUnit_Framework_TestCase{
     );
     $response = $this->albumsResource->createAlbum($newAlbum);
 
-    var_dump($response);
-
     $status = $response["status"];
     $body = $response["data"];
     $this->assertNotEmpty($body["id"]);

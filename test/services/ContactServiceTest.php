@@ -11,8 +11,8 @@ class ContactServiceTest extends PHPUnit_Framework_TestCase{
   private static $CONFIG = array();
   private static $MAILER_CONFIG = array();
   private static $fromEmail = "website@analogstudios.net";
-  private static $validEmail = "website@analogstudios.net";  //change to a valid address for testing
-  private static $invalidEmail = "owenlogstudios.net";
+  private static $validEmail = "abc123@analogstudios.net";  //change to a valid address for testing verification
+  private static $invalidEmail = "blahblah.net";
   private static $subject = "A message from the website";
   private static $message = "I really like your website!";
   private $contactService;
@@ -42,7 +42,7 @@ class ContactServiceTest extends PHPUnit_Framework_TestCase{
   /* Send Email  */
   /********/
   public function testSendEmailSuccess(){
-    $response = $this->contactService->sendEmail(self::$validEmail, self::$fromEmail, self::$subject, self::$message);
+    $response = $this->contactService->sendEmail(self::$CONFIG["mail.to"], self::$fromEmail, self::$subject, self::$message);
 
     $this->assertEquals($response["status"], 200);
     $this->assertEquals($response["message"], "Message has been sent");
