@@ -15,7 +15,7 @@ installed globally in dev / prod environments.
 - [Vagrant](https://www.vagrantup.com/) - used with VirtualBox to provide a headless VM for local development
 - [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox) - Virtualization software for managing a Ubuntu based VM 
 local development environment
-- [MySQL 5.6](https://www.mysql.com/) - Relational database.
+- [MySQL 5.5](https://www.mysql.com/) - Relational database.
 - [Apache 2](https://httpd.apache.org/) - recommended HTTP webserver, and used locally for development.
 - [Ubuntu 16.04](https://www.ubuntu.com/) - Recommended Linux distrubution, and used locally for development
 
@@ -168,3 +168,6 @@ To upgrade an existing dependency
 8. Add a "route" case in controller.php
 9. Create a route file in /routes, to match your resource name and route case
 10. Test all endpoints in POSTman
+
+## Release Management
+// TODO

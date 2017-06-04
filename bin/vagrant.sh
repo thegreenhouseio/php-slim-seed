@@ -45,15 +45,15 @@ mysql -uroot -p$DBPASSWD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'$LO
 service mysql restart
 
 echo "*** Installing PHP / Apache ***"
-apt-get install php7.0 php7.0-fpm php7.0-mysql php-mcrypt -y > /dev/null 2>&1
+apt-get install php7.1 php7.1-fpm php7.1-mysql php-mcrypt -y > /dev/null 2>&1
 apt-get install libapache2-mod-php -y > /dev/null 2>&1
 apt-get install php7.1-mysql
 
-#disable php5 apach2 module
+#disable php5 apache2 module
 /usr/sbin/a2dismod php5
 
 #enable php7 module
-a2enmod php7.0
+a2enmod php7.1
 
 #enable PDO driver
 phpenmod pdo_mysql
@@ -66,6 +66,7 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
 echo "*** Setting document root to public directory ***"
 rm -rf /var/www/html
+mkdir /home/vagrant/build
 ln -fs /home/vagrant/build/ /var/www/html
 
 echo "*** We definitely need to see PHP errors, turning them on ***"
@@ -103,10 +104,7 @@ composer --version
 phing -v
 phpunit --version
 
-echo "*** Setting Up Development Environment ***"
-mkdir /home/vagrant/build
-
+echo "*** Setting Up Local Development Environment Configuration***"
 cp /vagrant/ini/config-local.ini /home/vagrant/config-env.ini
-cp -v src/.htaccess /home/vagrant/build/
 
-apt-get -y install php-xdebug php7.1-xsl php7.0-xml -y
+apt-get -y install php-xdebug php7.1-xsl php7.1-xml -y
