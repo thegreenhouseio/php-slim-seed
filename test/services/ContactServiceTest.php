@@ -11,6 +11,7 @@ class ContactServiceTest extends PHPUnit_Framework_TestCase{
   private static $CONFIG = array();
   private static $MAILER_CONFIG = array();
   private static $fromEmail = "website@analogstudios.net";
+  private static $validEmail = "abc123@analogstudios.net";  //change to a valid address for testing verification
   private static $invalidEmail = "blahblah.net";
   private static $subject = "A message from the website";
   private static $message = "I really like your website!";
