@@ -26,8 +26,8 @@ class AuthenticationService{
   private $db;
   private $config;
 
-  //XXX TODO should have config service injected
-  //XXX TODO should have JWT Service injected
+  //TODO should have config service injected
+  //TODO should have JWT Service injected
   public function __construct($config){
     $this->config = $config;
     $this->db = new \PDO(

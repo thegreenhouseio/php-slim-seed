@@ -1,28 +1,33 @@
 # php-api-seed
-PHP7 / Slim Seed Project for API projects in The Greenhouse.
+PHP7 / Slim Seed Project for API projects in The Greenhouse.  This repository is meant to provide a starting point
+for a backend RESTful API as a companion to a static frontend SPA.  Generally  for your application, the overview would
+be something about your project though.
 
-configure
-- deploy script
-- build.xml (project name, project description, documentation task)
-- controller.php
-- Vagrantfile hostname
-- deploy script
-- hardcoded dev path in test files
-- oath token?
-- local config (contact)?
+## Stack
+As implied by the name, this project is written in [PHP >= 7.1][]  and functions within the [AMP][] stack.  The following 
+are the core tools used for development and deployment
 
-TODO
-- config file location?
-- config values
-- routes
-- CI setup
-- email
+- [Phing](https://www.phing.info/) - Phing is a build tool for PHP projects.  It is expected that the `phing` binary is 
+installed globally in dev / prod environments. 
+- [Composer](https://getcomposer.org/) - PHP package manager.
+- [Slim v2](https://www.slimframework.com/) - API centric micro-framework.
+- [Phar](http://php.net/manual/en/book.phar.php) - Build artifact of the project (PHP Archive).
+- [Vagrant](https://www.vagrantup.com/) - used with VirtualBox to provide a headless VM for local development
+- [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox) - Virtualization software for managing a Ubuntu based VM 
+local development environment
+- [MySQL 5.6](https://www.mysql.com/) - Relational database.
+- [Apache 2](https://httpd.apache.org/) - recommended HTTP webserver, and used locally for development.
+- [Ubuntu 16.04](https://www.ubuntu.com/) - Recommended Linux distrubution, and used locally for development
 
-PHP7
-Slim
-Composer
+[PHP >= 7.1]: http://php.net
+[AMP]: https://en.wikipedia.org/wiki/List_of_Apache%E2%80%93MySQL%E2%80%93PHP_packages
+[wiki]: https://github.com/thegreenhouseio/php-api-seed/wiki
 
-// Installation for con
+
+Please familiarize yourself with the project's [wiki][] for more supplemental information on configuring this project to 
+run in CI and production environments.
+
+
 ## Project Layout
 
 - _ini/_ - tracked and un-tracked environment based configuration files
@@ -36,44 +41,62 @@ Composer
 
 
 ## Development
-
-This project uses Vagrant for local development.  To use it please install
-
-1.  [Vagrant][] >= 1.7.4
-2.  [VirtualBox][] >= 5.x and latest available version guest additions (should get prompted during VB installation)
-3. Add this entry to your hosts file
-```
-127.0.0.1       local.analogstudios.thegreenhouse.io
-```
-
-4. Add the [EditorConfig][] plugin to your IDE
-
-[phing]: https://www.phing.info/
-[composer]: https://getcomposer.org/
-[EditorConfig]: http://editorconfig.org/
-[php]: http://php.net/
-[Vagrant]: https://www.vagrantup.com/
-[VirtualBox]: https://www.virtualbox.org/
-
+This section covers information relevant to local development for the project.
 
 ### Vagrant
-1. Start Vagrant `vagrant up`
-2. ssh into the box `vagrant ssh`
-3. move to the project root `cd /vagrant`
+This project uses Vagrant for local development and so all instructions have that assumption in place.  Please make sure 
+you have installed the recommended versions of Vagrant and Virtual Box.  These steps are for getting into a Vagrant VM
+development environment on your local machine:
 
-### Local Development
-For the most part, you will just need to write code and then write tests for it and see if they pass or fail.  This 
+```bash
+# start vagrant and ssh into it
+$ vagrant up
+$ vagrant ssh
+
+# move into the mapped drive that points the root of the repo
+$ cd /vagrant
+
+# notice all our files
+vagrant@thegreenhouse:/vagrant$ ls -l
+total 168
+drwxr-xr-x 1 vagrant vagrant    170 Jun  4 17:55 bin
+drwxr-xr-x 1 vagrant vagrant    102 Jun  4 14:26 build
+-rw-r--r-- 1 vagrant vagrant   5827 Jun  4 14:28 build.xml
+-rwxr-xr-x 1 vagrant vagrant    352 Jun  4 14:19 composer.json
+-rw-r--r-- 1 vagrant vagrant 144338 Jun  3 02:22 composer.lock
+drwxr-xr-x 1 vagrant vagrant    204 Jun  4 13:46 ini
+-rw-r--r-- 1 vagrant vagrant   5296 Jun  4 18:06 README.md
+drwxr-xr-x 1 vagrant vagrant    170 Jun  4 14:26 reports
+drwxr-xr-x 1 vagrant vagrant    102 Jun  4 14:14 sql
+drwxr-xr-x 1 vagrant vagrant    306 Jun  4 14:25 src
+drwxr-xr-x 1 vagrant vagrant    136 Jun  3 02:17 test
+-rw-r--r-- 1 vagrant vagrant    429 Jun  3 02:17 Vagrantfile
+drwxr-xr-x 1 vagrant vagrant   1088 Jun  4 14:22 vendor
+
+# to exit the shell, run exit
+vagrant@thegreenhouse:/vagrant$ exit
+
+# to tear down, run destroy back on your local machine
+$ vagrant destroy
+```
+
+For more on all available Vagrant commands, see the [manual](https://www.vagrantup.com/docs/cli/).
+
+For OSX users, there is a GUI application called [Vagrant Manager](http://vagrantmanager.com/).
+
+### Tasks
+An overview of Phing commands that can be run for this project
+
+#### Development
+For the most part, you will just want to write code, write some tests, and the it passes or fails.  This 
 can be done with
 
 ```
 $ phing develop`
 ```
-For testing any of the build targets and running in Vagrant, append this to all commands
-```
--D buildDir=/home/vagrant/build && cp src/.htaccess /home/vagrant/build/
-```
 
-## Deploment
+#### Production
+
 1. standard production build (WITH linting, docs, tests)
 
 ```
@@ -87,28 +110,32 @@ $ phing build:exp
 ```
 
 You can test from the Vagrant VM using cURL
-`curl localhost/api/events`
+`curl localhost/api/albums`
 
 Or the browser / POSTman against your host machine
-`localhost:4567/api/events`
+`localhost:4567/api/albums`
 
-**note: Install [POSTman](https://www.getpostman.com/) and make an account and contact me to get access to all 
-the APIs for the project.**
 
-## Testing
+**Note:** When running any of the production tasks in Vagrant, add this to the command
+```
+-D buildDir=/home/vagrant/build && cp src/.htaccess /home/vagrant/build/
+```
+
+### Testing
 PHPunit is used for unit testing
 `phing test`
 
 To see code coverage, open _{path/to/repo/in/your/filesystem}/reports/coverage_result/index.html_ in your browser
 
-## API Documenation
+### API Documentation
 To generate API documentation run
 `$ phing clean`
 `$ phing docs`
 
 and open _{path/to/repo/in/your/filesystem}/reports/docs/index.html_ in your browser
 
-## Dependency Management
+
+### Dependency Management
 Composer is used for managing / install 3rd party dependencies for the project.  It also creates an autoloader.
 
 To install all the dependencies from _package.json_
@@ -120,71 +147,8 @@ To install a new dependency
 To upgrade an existing dependency
 `$ composer require {package-name}
 
-## Deployment
 
-### Environment Configuration
-The application expects the following files to be deployed to the webroot
-* config.ini
-* as-api.phar
-* controller.php
-
-In some form or another, the environment should have some sort of rewriting / proxying of requests for the API to pass 
-to _controller.php_.  This is a common feature of webservers like Apache and Nginix.  A basic example for Apache would
-be
-```
-<Directory /var/www/html>               
-    Options Indexes FollowSymLinks MultiViews
-    AllowOverride All
-    Order allow,deny
-    allow from all
-   
-    RewriteEngine On
-                  
-    RewriteCond %{HTTP:Authorization} .+
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-    RewriteCond $1 ^api\/
-    RewriteRule ^(.*) controller.php [L,PT]
-   
-    FallbackResource /index.html
-</Directory>
-```
-
-### App Config (ini)
-`config-bootstrap.ini` contains the initial configuration needed for the application, and should be deployed in the
-webroot, configured accordingly, and renamed to `config.ini`.  (This is done automatically when developing locally)
-- _env_config_ini_path_  - path to env config for application.
-
-
-*It is highly recommended that the config-{env}.ini file be located outside the webroot*
-
-### Env Config (ini)
-`config-env.ini` path should be configured in `config-bootrap.ini` (see above).  When deployed, the file should be
-renamed to `config-env.ini`  (This is done automatically when developing locally)
-
-*Note:* The actual environment specific ini files are not tracked in version control
-
-- _db.host_ - the hostname for the database (i.e. localhost, 127.0.0.1)
-- _db.name_ - name of the database for the application
-- _db.user_ - the user to connect to the DB as
-- _db.password_ - the password for the db user
-- _runtime.displayErrors_ - display runtime errors or not (i.e. on or off)
-- _session.domain_ - the domain the app is running under (i.e. www.analogstudios.net)
-
-**note: SENSITIVE CREDENTIALS SHOULD NOT BE COMMITTED TO THE REPO!  DB BACKUPS ARE ONLY FOR LOCAL TESTING, RDS SHOULD
-PRESERVE ALL BACKUPS***
-
-## Database
-The application database is hosted in AWS [RDS].  All the relevant _sql_ backup and patch files are included in the
-_src/sql_ directory.  For each release, an incremented sql file is expected such that it can be run on the prod database
-for when a schema change is made.  When a release happens, the current production database should be backed (primary
-to keep the Vagrant created test databases current with production).
-
-**note: SENSITIVE CREDENTIALS SHOULD NOT BE COMMITTED TO THE REPO!  DB BACKUPS ARE ONLY FOR LOCAL TESTING, RDS SHOULD
-PRESERVE ALL BACKUPS***
-
-[RDS]: https://aws.amazon.com/rds/
-
-## Creating a new resource / endpoint (/events, /artists, etc )
+### Creating a new resource / endpoint (/albums, /artists, etc )
 1. Copy paste an existing resource (like Artists)
 2. Update $name, $tableName, $requiredParams, $updateParams, $optionalParams  
 3. Update method params (getFoo, getFooById, etc)
