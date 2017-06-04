@@ -1,4 +1,5 @@
 <?php
+//TODO https://github.com/thegreenhouseio/php-api-seed/issues/6
 //error_reporting(E_ALL | E_STRICT);
 //
 //require_once "src/services/AuthenticationService.php";
