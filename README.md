@@ -8,12 +8,15 @@ configure
 - Vagrantfile hostname
 - deploy script
 - hardcoded dev path in test files
+- oath token?
+- local config (contact)?
 
 TODO
 - config file location?
 - config values
 - routes
 - CI setup
+- email
 
 PHP7
 Slim

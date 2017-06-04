@@ -2,10 +2,10 @@
 
 LOCALHOST=localhost
 DBHOST=127.0.0.1
-DBNAME=tgh
+DBNAME=thegreenhouse
 DBUSER=tghtester
 DBPASSWD=test123
-SQL_IMPORT=/vagrant/sql/tgh.sql
+SQL_IMPORT=/vagrant/sql/thegreenhouse.sql
 
 echo "*** Starting installation... ***"
 
@@ -47,12 +47,16 @@ service mysql restart
 echo "*** Installing PHP / Apache ***"
 apt-get install php7.0 php7.0-fpm php7.0-mysql php-mcrypt -y > /dev/null 2>&1
 apt-get install libapache2-mod-php -y > /dev/null 2>&1
+apt-get install php7.1-mysql
 
 #disable php5 apach2 module
 /usr/sbin/a2dismod php5
 
 #enable php7 module
 a2enmod php7.0
+
+#enable PDO driver
+phpenmod pdo_mysql
 
 echo "*** Enabling mod-rewrite ***"
 a2enmod rewrite > /dev/null 2>&1
@@ -65,12 +69,12 @@ rm -rf /var/www/html
 ln -fs /home/vagrant/build/ /var/www/html
 
 echo "*** We definitely need to see PHP errors, turning them on ***"
-sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/apache2/php.ini
-sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/apache2/php.ini
+sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/apache2/php.ini
+sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/apache2/php.ini
 
 echo -e "*** Turn on Phar Support ***"
-sed -i 's/;phar.readonly = On/phar.readonly = Off/g' /etc/php/7.0/apache2/php.ini
-sed -i 's/;phar.readonly = On/phar.readonly = Off/g' /etc/php/7.0/cli/php.ini
+sed -i 's/;phar.readonly = On/phar.readonly = Off/g' /etc/php/7.1/apache2/php.ini
+sed -i 's/;phar.readonly = On/phar.readonly = Off/g' /etc/php/7.1/cli/php.ini
 
 echo "*** Restarting Apache ***"
 service apache2 restart > /dev/null 2>&1
@@ -101,6 +105,6 @@ phpunit --version
 
 echo "*** Setting Up Env Config ***"
 cp /vagrant/ini/config-local.ini /home/vagrant/config-env.ini
-cp -v src/.htaccess /home/vagrant/build/
+cp -v src/.htaccess /home/vagrant/build
 
 apt-get -y install php-xdebug php7.1-xsl php7.0-xml -y

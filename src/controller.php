@@ -31,6 +31,7 @@ $slim->add(new \Slim\Middleware\SessionCookie(array(
 $slim->response->headers->set("Content-Type", "application/json");
 
 /* instantiate authentication service */
+//TODO encapsulate / make DRY? ehttps://github.com/thegreenhouseio/php-api-seed/issues/5
 $authService = new \services\AuthenticationService($envConfig);
 $authHeader = $slim->request->headers->get('Authorization');
 $token = sscanf($authHeader, 'Bearer %s')[0];
@@ -46,8 +47,7 @@ $invalidLoginResponse = array(
 
 switch ($loginStatus) {
   case "EXPIRED":
-    //TODO use 419;
-    //https://thegreenhouse.atlassian.net/browse/AS-202
+    //TODO use 419
     $invalidLoginResponse["data"]["message"] = "User session expired";
     break;
   case "VALID":
@@ -59,27 +59,21 @@ switch ($loginStatus) {
 /* routing and controlling */
 $request = $slim->request;
 $path = $request->getResourceUri();
-$resources = array('albums', 'artists', 'events', 'posts');
+$resources = array("albums", "artists");
 $route = '';
 
 switch ($path){
-  case strpos($path, 'albums') !== FALSE:
+  case strpos($path, "albums") !== FALSE:
     $route = 'albums';
     break;
-  case strpos($path, 'artists') !== FALSE:
+  case strpos($path, "artists") !== FALSE:
     $route = 'artists';
     break;
-  case strpos($path, 'contact') !== FALSE:
+  case strpos($path, "contact") !== FALSE:
     $route = 'contact';
     break;
-  case strpos($path, 'events') !== FALSE:
-    $route = 'events';
-    break;
-  case strpos($path, 'login') !== FALSE:
+  case strpos($path, "login") !== FALSE:
     $route = 'login';
-    break;
-  case strpos($path, 'posts') !== FALSE:
-    $route = 'posts';
     break;
 }
 
@@ -96,7 +90,7 @@ if(in_array($route, $resources)){
   $resource = $builder->getResource();
 };
 
-//XXX TODO make routing OOP
+//TODO make routing OOP - https://github.com/thegreenhouseio/php-api-seed/issues/4
 require_once PHAR_PATH . "/routes/" . $route . "-route.php";
 
 //start slim

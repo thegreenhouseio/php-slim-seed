@@ -37,7 +37,7 @@ class RestfulEntityBuilder extends PHPUnit_Framework_TestCase{
     $builder = new resource\RestfulResourceBuilder(self::$DB_CONFIG, 'albums');
     $resource = $builder->getResource();
 
-    $this->assertTrue($resource instanceof resource\EventsResource);
+    $this->assertTrue($resource instanceof resource\AlbumsResource);
     $this->assertTrue(is_subclass_of($resource, base\AbstractRestfulResource::class, false));
   }
 

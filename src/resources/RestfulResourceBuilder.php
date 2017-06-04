@@ -38,17 +38,11 @@ class RestfulResourceBuilder {
     $entity = NULL;
 
     switch (strtolower($this->entityType)){
-      case 'albums':
+      case "albums":
         $entity = new AlbumsResource($this->db);
         break;
-      case 'artists':
+      case "artists":
         $entity = new ArtistsResource($this->db);
-        break;
-      case 'events':
-        $entity = new EventsResource($this->db);
-        break;
-      case 'posts':
-        $entity = new PostsResource($this->db);
         break;
       default:
         //throw exception

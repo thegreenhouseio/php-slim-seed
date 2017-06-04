@@ -33,10 +33,9 @@ class AlbumsResourceTest extends PHPUnit_Framework_TestCase{
       "password" => self::$CONFIG["db.password"]
     );
     self::$MOCK_ALBUM_MODEL = array(
-      "id" => 1,
-      "title" => "Debut CD Release Party (live)",
-      "description" => "The lead singer of Analog, Dave Flamand is from Rhode Island and we are pleased to offer you exclusive downloads of his demo from this site. These songs provided the framework leading up to the creation of Analog, and as such you may recognize most of the songs from When The Media Talks About The Media from these demos. Lost Time was released early 2008 and Spare Time followed shortly thereafter. Lost Time is Dave&#39;s acoustic debut, showcasing his talent as songwriter and versatile musician. The are all of his own original recordings made on Block Island and recorded by himself. Dave not only wrote all the songs, but also played all the instruments himself",
-      "year" => 2008,
+      "title" => "Mock Model - Debut CD Release Party (live)",
+      "description" => "Mock Model - The lead singer of Analog, Dave Flamand is from Rhode Island and we are pleased to offer you exclusive downloads of his demo from this site. These songs provided the framework leading up to the creation of Analog, and as such you may recognize most of the songs from When The Media Talks About The Media from these demos. Lost Time was released early 2008 and Spare Time followed shortly thereafter. Lost Time is Dave&#39;s acoustic debut, showcasing his talent as songwriter and versatile musician. The are all of his own original recordings made on Block Island and recorded by himself. Dave not only wrote all the songs, but also played all the instruments himself",
+      "year" => 2017,
       "imageUrl" => "http://d3cpag05e1ba19.cloudfront.net/hosted/albums/dave-flamand/lost-time/lost-time.jpg",
       "downloadUrl" => "http://d3cpag05e1ba19.cloudfront.net/hosted/albums/dave-flamand/lost-time/lost-time.zip",
       "artistId" => 1
@@ -91,6 +90,8 @@ class AlbumsResourceTest extends PHPUnit_Framework_TestCase{
       "artistId" => self::$MOCK_ALBUM_MODEL["artistId"]
     );
     $response = $this->albumsResource->createAlbum($newAlbum);
+
+    var_dump($response);
 
     $status = $response["status"];
     $body = $response["data"];

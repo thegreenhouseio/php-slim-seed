@@ -57,7 +57,7 @@ class RestfulDatabaseService extends base\AbstractRestfulDatabase{
     );
   }
 
-  public function select ($tableName = "", $id = null, $filterParams = array()) {
+  public function select($tableName = "", $id = null, $filterParams = array()) {
     $db = $this->db;
     $validId = preg_match(self::$PATTERN["ID"], $id) === 1 ? TRUE : FALSE;
     $validTableName = $tableName !== '' ? TRUE : FALSE;
@@ -116,7 +116,7 @@ class RestfulDatabaseService extends base\AbstractRestfulDatabase{
     return $this->generateResponse($code, $result);
   }
 
-  public function insert ($tableName = "", $requiredParams = array(), $data = array(), $optionalParams = array()) {
+  public function insert($tableName = "", $requiredParams = array(), $data = array(), $optionalParams = array()) {
     $db = $this->db;
     $queryParams = array();
     $query = "INSERT INTO " . $tableName . " ";
@@ -170,6 +170,12 @@ class RestfulDatabaseService extends base\AbstractRestfulDatabase{
 
       $stmt->execute();
 
+      echo "\nPDOStatement::errorCode(): ";
+      print $stmt->errorCode();
+
+      echo "\nROW COUNT: ";
+      print $stmt->rowCount() ;
+
       if($stmt->rowCount() === 1){
         $code = self::$STATUS_CODE["CREATED"];
         $result = array(
@@ -188,7 +194,7 @@ class RestfulDatabaseService extends base\AbstractRestfulDatabase{
     return $this->generateResponse($code, $result, $invalidParamError);
   }
 
-  public function update ($tableName = "", $id = null, $updateParams = array(), $data = array()) {
+  public function update($tableName = "", $id = null, $updateParams = array(), $data = array()) {
     $db = $this->db;
     $invalidParamError = '';
     $result = array();
@@ -254,7 +260,7 @@ class RestfulDatabaseService extends base\AbstractRestfulDatabase{
     return $this->generateResponse($code, $result, $invalidParamError);
   }
 
-  public function delete ($tableName = "", $id = null) {
+  public function delete($tableName = "", $id = null) {
     $db = $this->db;
     $result = array();
     $invalidParamError = "";

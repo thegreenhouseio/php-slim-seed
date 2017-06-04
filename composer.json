@@ -1,8 +1,5 @@
 {
   "config": {
-    "github-oauth": {
-      "github.com": "bf3c31adaded4e18f2b7e9bff0ae81146f8083c7"
-    },
     "vendor-dir": "vendor"
   },
   "require": {
@@ -17,7 +14,7 @@
   },
   "autoload":{
     "psr-4": {
-      "as\\" : "/src"
+      "tgh\\" : "/src"
     }
   }
 }
