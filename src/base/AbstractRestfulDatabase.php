@@ -22,7 +22,8 @@ abstract class AbstractRestfulDatabase {
       case 'PDO':
         try {
           $this->db = new \PDO($dbConfig["dsn"], $dbConfig["username"], $dbConfig["password"]);
-          $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+          //uncomment below for debugging
+          //$this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
           echo $e->getMessage();
         }

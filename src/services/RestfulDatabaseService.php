@@ -170,12 +170,6 @@ class RestfulDatabaseService extends base\AbstractRestfulDatabase{
 
       $stmt->execute();
 
-      echo "\nPDOStatement::errorCode(): ";
-      print $stmt->errorCode();
-
-      echo "\nROW COUNT: ";
-      print $stmt->rowCount() ;
-
       if($stmt->rowCount() === 1){
         $code = self::$STATUS_CODE["CREATED"];
         $result = array(

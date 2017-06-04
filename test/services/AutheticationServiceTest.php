@@ -13,7 +13,7 @@
 //
 //  public function setup() {
 //    //determine local vs development config path
-//    $configPath = getcwd() === "/vagrant" ? "./ini/config-local.ini" : "/var/www/thegreenhouse/config-env.ini";
+//    $configPath = getcwd() === "/vagrant" ? "./ini/config-local.ini" : "/var/www/config-env.ini";
 //
 //    self::$CONFIG = service\ConfigService::getConfigFromIni($configPath);
 //    self::$TEST_CONFIG = array(
